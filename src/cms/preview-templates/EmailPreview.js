@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { EmailTemplate } from '../../templates/email'
 
-const BlogPostPreview = ({ entry, widgetFor }) => (
+const EmailPreview = ({ entry, widgetFor }) => (
   <EmailTemplate
     content={widgetFor('body')}
     description={entry.getIn(['data', 'description'])}
@@ -11,11 +11,11 @@ const BlogPostPreview = ({ entry, widgetFor }) => (
   />
 )
 
-BlogPostPreview.propTypes = {
+EmailPreview.propTypes = {
   entry: PropTypes.shape({
     getIn: PropTypes.func,
   }),
   widgetFor: PropTypes.func,
 }
 
-export default BlogPostPreview
+export default EmailPreview

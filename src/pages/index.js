@@ -1,32 +1,66 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link, graphql } from 'gatsby'
 import Layout from '../components/Layout'
-import Footer from '../components/Footer'
 
 export default class IndexPage extends React.Component {
   render() {
+    const { data } = this.props
+    const { edges: posts } = data.allMarkdownRemark
+
     return (
       <Layout>
-        <div class="container" role="presentation">
-          <div class="content">
-            <span class="preheader">This is preheader text. Some clients will show this text as a preview.</span>
-            <div class="main" role="presentation">
-              <div class="wrapper" role="presentation">
-                <p>Hi __NAME__,</p>
-                <p>Sometimes you just want to send a simple HTML email with a simple design and clear call to action. This is it.</p>
-                <div class="btn btn-primary">
-                  <a href="http://htmlemail.io" target="_blank" rel="noopener noreferrer">Call To Action</a>
+        <div className="container">
+          <div className="content">
+            <div className="main">
+              <div className="wrapper">
+                <h1>Email templates</h1>
+                <div>
+                  {posts.map(({ node: post }) => (
+                    <p key={post.fields.slug}>
+                      <Link to={post.fields.slug}>
+                        {post.frontmatter.title}
+                      </Link>
+                    </p>
+                  ))}
                 </div>
-                <p>This is a really simple email template. Its sole purpose is to get the recipient to click the button with no distractions.</p>
-                <p>Good luck! Hope it works.</p>
-                <br/>
-                <p>Xaolonist's Team,</p>
               </div>
             </div>
-            <Footer />
           </div>
         </div>
       </Layout>
     )
   }
 }
+
+IndexPage.propTypes = {
+  data: PropTypes.shape({
+    allMarkdownRemark: PropTypes.shape({
+      edges: PropTypes.array,
+    }),
+  }),
+}
+
+export const pageQuery = graphql`
+  query IndexQuery {
+    allMarkdownRemark(
+      sort: { order: DESC, fields: [frontmatter___date] },
+      filter: { frontmatter: { templateKey: { eq: "email" } }}
+    ) {
+      edges {
+        node {
+          excerpt(pruneLength: 400)
+          id
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+            templateKey
+            date(formatString: "MMMM DD, YYYY")
+          }
+        }
+      }
+    }
+  }
+`

@@ -8,21 +8,22 @@ import Content, { HTMLContent } from '../components/Content'
 export const BlogPostTemplate = ({
   content,
   contentComponent,
-  description,
-  title,
 }) => {
   const PostContent = contentComponent || Content
 
   return (
     <div className="container">
       <div className="content">
+        <span class="preheader">
+          This is preheader text. Some clients will show this text as a preview.
+        </span>
+
         <div className="main">
-          <div className="wrapper">
-            <h1>{title}</h1>
-            <p>{description}</p>
+          <div className="wrapper" role="presentation">
             <PostContent content={content} />
           </div>
         </div>
+
         <Footer />
       </div>
     </div>

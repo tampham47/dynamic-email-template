@@ -5,7 +5,7 @@ import Layout from '../components/Layout'
 import Footer from '../components/Footer'
 import Content, { HTMLContent } from '../components/Content'
 
-export const BlogPostTemplate = ({
+export const EmailTemplate = ({
   content,
   contentComponent,
 }) => {
@@ -30,7 +30,7 @@ export const BlogPostTemplate = ({
   )
 }
 
-BlogPostTemplate.propTypes = {
+EmailTemplate.propTypes = {
   content: PropTypes.node.isRequired,
   contentComponent: PropTypes.func,
   description: PropTypes.string,
@@ -42,7 +42,7 @@ const BlogPost = ({ data }) => {
 
   return (
     <Layout>
-      <BlogPostTemplate
+      <EmailTemplate
         content={post.html}
         contentComponent={HTMLContent}
         description={post.frontmatter.description}

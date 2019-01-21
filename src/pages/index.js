@@ -1,64 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link, graphql } from 'gatsby'
 import Layout from '../components/Layout'
 
 export default class IndexPage extends React.Component {
   render() {
+    const { data } = this.props
+    const { edges: posts } = data.allMarkdownRemark
+
     return (
       <Layout>
-        <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body">
-          <tr>
-            <td>&nbsp;</td>
-            <td class="container">
-              <div class="content">
-                <span class="preheader">This is preheader text. Some clients will show this text as a preview.</span>
-                <table role="presentation" class="main">
-                  <tr>
-                    <td class="wrapper">
-                      <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                          <td>
-                            <p>Hi there,</p>
-                            <p>Sometimes you just want to send a simple HTML email with a simple design and clear call to action. This is it.</p>
-                            <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
-                              <tbody>
-                                <tr>
-                                  <td align="left">
-                                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                                      <tbody>
-                                        <tr>
-                                          <td> <a href="http://htmlemail.io" target="_blank" rel="noopener noreferrer">Call To Action</a> </td>
-                                        </tr>
-                                      </tbody>
-                                    </table>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                            <p>This is a really simple email template. Its sole purpose is to get the recipient to click the button with no distractions.</p>
-                            <p>Good luck! Hope it works.</p>
-                          </td>
-                        </tr>
-                      </table>
-                    </td>
-                  </tr>
-                </table>
-
-                <div class="footer">
-                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                    <tr>
-                      <td class="content-block">
-                        <span class="apple-link">Company Inc, 3 Abbey Road, San Francisco CA 94102</span>
-                        <br/> Don't like these emails? <a href="http://i.imgur.com/CScmqnj.gif">Unsubscribe</a>.
-                      </td>
-                    </tr>
-                  </table>
+        <div className="container">
+          <div className="content">
+            <div className="main">
+              <div className="wrapper">
+                <h1>Email templates</h1>
+                <div>
+                  {posts.map(({ node: post }) => (
+                    <p key={post.fields.slug}>
+                      <Link to={post.fields.slug}>
+                        {post.frontmatter.title}
+                      </Link>
+                    </p>
+                  ))}
                 </div>
               </div>
-            </td>
-            <td>&nbsp;</td>
-          </tr>
-        </table>
+            </div>
+          </div>
+        </div>
       </Layout>
     )
   }
@@ -71,3 +40,27 @@ IndexPage.propTypes = {
     }),
   }),
 }
+
+export const pageQuery = graphql`
+  query IndexQuery {
+    allMarkdownRemark(
+      sort: { order: DESC, fields: [frontmatter___date] },
+      filter: { frontmatter: { templateKey: { eq: "email" } }}
+    ) {
+      edges {
+        node {
+          excerpt(pruneLength: 400)
+          id
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+            templateKey
+            date(formatString: "MMMM DD, YYYY")
+          }
+        }
+      }
+    }
+  }
+`

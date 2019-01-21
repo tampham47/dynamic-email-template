@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Layout from '../components/Layout'
+import Footer from '../components/Footer'
 
 export default class IndexPage extends React.Component {
   render() {
@@ -43,17 +44,7 @@ export default class IndexPage extends React.Component {
                     </td>
                   </tr>
                 </table>
-
-                <div class="footer">
-                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                    <tr>
-                      <td class="content-block">
-                        <span class="apple-link">Company Inc, 3 Abbey Road, San Francisco CA 94102</span>
-                        <br/> Don't like these emails? <a href="http://i.imgur.com/CScmqnj.gif">Unsubscribe</a>.
-                      </td>
-                    </tr>
-                  </table>
-                </div>
+                <Footer />
               </div>
             </td>
             <td>&nbsp;</td>

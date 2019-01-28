@@ -13,6 +13,6 @@ Welcome to the team!
 
 Regards,
 
-Bill Brown
-bbrownXYZ@email.com
+Bill Brown  
+bbrownXYZ@email.com  
 (123) 456-7890

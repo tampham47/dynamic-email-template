@@ -5,7 +5,7 @@ const Footer = () => (
     <div class="content-block" role="presentation">
       <span class="apple-link">Company Inc, 3 Abbey Road, San Francisco CA 94102</span>
       <br/>
-      <span>Don't like these emails?</span> <a href="http://i.imgur.com/CScmqnj.gif">Unsubscribe</a>.
+      <span>Don't like these emails?</span> <a href="http://i.imgur.com/CScmqnj.gif">Unsubscribe</a>
     </div>
   </div>
 )
